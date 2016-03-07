@@ -1,0 +1,108 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="owox-calculator">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+
+      .plan__item {
+        display: inline-block;
+        position: relative;
+        width: 158px;
+        padding: 12px 0;
+        margin: 0 12px 0 0;
+        text-align: center;
+        font-size: 1.06em;
+        border: 1px solid #e1e1e1;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .plan__item.iron-selected {
+        border: 1px solid #8db5f8;
+        box-shadow: 0 2px 7px rgba(51,51,51,0.2);
+      }
+
+      input {
+        @apply(--paper-font-body2);
+      }
+    </style>
+
+    <h2 class="calculator__title">Calculate Your Price</h2>
+
+    <iron-selector id="plan" class="plan" attr-for-selected="name" selected="{{plan}}">
+      <div name="pro" class="plan__item">Pro</div>
+      <div name="enterprise" class="plan__item">Enterprise</div>
+    </iron-selector>
+
+    <div class="calculator-users">
+      <label for="users">Number of unique users per month</label>
+      <input id="users" type="text" value="{{users::input}}">
+    </div>
+
+    <div class="calculator__total">
+      <h3>Total per month:</h3>
+      <div id="total">{{formatTotal(total)}}</div>
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'owox-calculator',
+
+        listeners: {
+          'users.input': '_input'
+        },
+
+        properties: {
+          plan: {
+            type: String,
+            value: 'pro',
+            notify: true
+          },
+          total: {
+            type: Number,
+            computed: 'computeTotal(plan, users)',
+            notify: true
+          },
+          users: {
+            type: String,
+            value: '1,000,000',
+            notify: true
+          }
+        },
+
+        /* add commas while user typing numbers */
+        _input: function(e) {
+          e.target.value = e.target.value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+
+        /* calculate total amount */
+        computeTotal: function(plan, users) {
+          var count = Number(users.replace(/\D/g, ""));
+          switch (plan) {
+            case "pro":
+              return Math.round((count * 0.96 / 1000 + 95) * 100) / 100;
+              break;
+            case "enterprise":
+              return Math.round((count * 0.85 / 1000 + 1200) * 100) / 100;
+              break;
+          }
+        },
+
+        /* output formatted total */
+        formatTotal: function(total) {
+          return '$' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+      });
+    })();
+  </script>
+</dom-module>
