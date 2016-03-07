@@ -100,8 +100,82 @@
       }
 
       .owox-calculator-right {
-        /*width: 276px;*/
         float: right;
+      }
+
+      .owox-calculator-copy-container {
+          position: relative;
+          margin: 0 0 10px;
+      }
+
+      .owox-calculator-copy-link-btn {
+        padding-left: 28px;
+      }
+
+      .owox-calculator-copy-link-btn:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 25px;
+        height: 15px;
+        background: url(https://i.owox.com/owox_com/link-icon.png) no-repeat 0 0;
+      }
+
+      .owox-calculator-copy-link-btn-t {
+        display: inline-block;
+        border-bottom: 1px dashed #5c5c5c;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .owox-calculator-copy-result {
+        position: absolute;
+        z-index: 21;
+        right: 0;
+        top: 40px;
+        right: 20px;
+        padding: 15px;
+        background: #fff;
+        border: 1px solid #8db5f8;
+        border-radius: 4px;
+      }
+
+      .owox-calculator-copy-result:before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 16px;
+        background: url(https://i.owox.com/owox_com/calculator-corner.png) no-repeat 0 0;
+        position: absolute;
+        left: 50%;
+        top: -12px;
+        transform: rotate(90deg);
+      }
+
+      .owox-calculator-copy-url-box {
+        width: 400px;
+        font-size: 0.84em;
+        border: none;
+        color: #646464;
+      }
+
+      .owox-calculator-copy-success {
+        margin: 10px 0 0;
+        padding: 0 0 0 25px;
+        position: relative;
+      }
+
+      .owox-calculator-copy-success:before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 0;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url(https://i.owox.com/owox_com/checked-list-small.png) no-repeat 0 0;
       }
 
       .owox-calculator-summary {
@@ -226,6 +300,16 @@
 
     <div class="owox-calculator-right">
 
+      <div class="owox-calculator-copy-container">
+        <div class="owox-calculator-copy-link-btn">
+          <span id="copy" class="owox-calculator-copy-link-btn-t">Copy url to clipboard</span>
+        </div>
+        <div id="tooltip" class="owox-calculator-copy-result hidden">
+          <input id="url_container" class="owox-calculator-copy-url-box" readonly>
+          <div id="message" class="owox-calculator-copy-success">Copied to clipboard!</div>
+        </div>
+      </div>
+
       <div class="owox-calculator-summary">
         <h4 class="owox-calculator-summary-heading">Pricing Summary</h4>
         <div class="owox-calculator-summary-calc">
@@ -261,8 +345,10 @@
         is: 'owox-calculator',
 
         listeners: {
+          'click'               : '_hideMessage',
           'users.input'         : '_inputUsers',
-          'plan.iron-deselect'  : '_selectPlan'
+          'plan.iron-deselect'  : '_selectPlan',
+          'copy.click'          : '_copyUrl'
         },
 
         properties: {
@@ -304,6 +390,30 @@
         // update url parameters
         _selectPlan: function(e) {
           page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + this.users.replace(/\D/g, ""));
+        },
+
+        // copy url to clipboard
+        _copyUrl: function(e) {
+          e.stopPropagation();
+
+          this.$.url_container.value = window.location.href;
+          this.toggleClass('hidden', false, this.$.tooltip);
+          this.$.url_container.select();
+
+          try {
+            if (document.execCommand('copy')) {
+              this.$.message.textCnotent = 'Copied to clipboard!';
+            }
+          } catch (err) {
+            this.$.message.textCnotent = 'Please press Ctrl-C to copy link';
+          }
+        },
+
+        // hide message
+        _hideMessage: function(e) {
+          if (e.target.id !== 'tooltip' && e.target.parentNode.id !== 'tooltip') {
+            this.toggleClass('hidden', true, this.$.tooltip);
+          }
         },
 
         // calculate total amount

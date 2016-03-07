@@ -12,6 +12,12 @@
         min-width: 1080px;
       }
 
+      ::selection {
+        background: #8db5f8;
+        color: #fff;
+        text-shadow: none;
+      }
+
       .page-title {
         @apply(--paper-font-display2);
       }
@@ -24,6 +30,10 @@
         .page-title {
           font-size: 24px!important;
         }
+      }
+
+      .hidden {
+        display: none;
       }
     </style>
   </template>
