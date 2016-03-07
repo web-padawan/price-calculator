@@ -4,11 +4,22 @@
 <dom-module id="shared-styles">
   <template>
     <style>
+
+      * {
+        border: 0;
+        outline: 0;
+        box-sizing:border-box;
+      }
+
       html, body {
         font: normal 400 0.9375em 'OpenSansRegular',sans-serif;
         background: #f9f9f9;
         color: #646464;
         min-width: 1080px;
+      }
+
+      h1, h2, h3 {
+        letter-spacing: -0.026em;
       }
 
       ::selection {

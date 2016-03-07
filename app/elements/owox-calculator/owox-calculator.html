@@ -6,8 +6,9 @@
     <style include="shared-styles">
       :host {
         display: block;
-        width: 812px;
+        width: 862px;
         margin: 5% auto;
+        padding: 0 50px;
         background: #fff;
         max-height: 602px;
         height: 602px;
@@ -24,11 +25,12 @@
         width: 395px;
         float: left;
         margin: 12px 0 0 22px;
+        padding-left: 0;
         list-style: none;
       }
 
       .owox-calculator-l-i {
-        padding: 0 0 26px 32px;
+        padding: 0 0 26px 19px;
         color: #444;
         border-left: 1px solid #cfcfcf;
       }
@@ -64,6 +66,7 @@
       }
       .owox-calculator-l-i:nth-of-type(3) .owox-calculator-l-i-heading:before {
         content: '3';
+        left: -46px;
       }
 
       .owox-calculator-l-i-select-btn {
@@ -101,6 +104,7 @@
 
       .owox-calculator-right {
         float: right;
+        margin-right: 50px;
       }
 
       .owox-calculator-copy-container {
@@ -252,7 +256,8 @@
 
       .owox-calculator-total-advise {
         max-width: 200px;
-        padding: 5px 45px 20px;
+        padding: 5px 0 20px;
+        margin: 0 auto;
       }
 
       .owox-calculator-annotation {
@@ -276,25 +281,29 @@
     <ul class="owox-calculator-l">
 
       <li class="owox-calculator-l-i">
-        <div class="owox-calculator-l-i-heading">Select Plan</div>
-        <iron-selector id="plan" class="owox-calculator-l-i-select" attr-for-selected="name" selected="{{plan}}">
-          <div name="pro" class="owox-calculator-l-i-select-btn">Pro</div>
-          <div name="enterprise" class="owox-calculator-l-i-select-btn">Enterprise</div>
-        </iron-selector>
+        <fieldset>
+          <legend class="owox-calculator-l-i-heading">Select plan</legend>
+          <iron-selector id="plan" class="owox-calculator-l-i-select" attr-for-selected="name" selected="{{plan}}">
+            <div name="pro" class="owox-calculator-l-i-select-btn">Pro</div>
+            <div name="enterprise" class="owox-calculator-l-i-select-btn">Enterprise</div>
+          </iron-selector>
+        </fieldset>
       </li>
 
       <li class="owox-calculator-l-i">
-        <div class="owox-calculator-l-i-heading">Payment Contract</div>
-        <iron-selector id="payment" class="owox-calculator-l-i-select" attr-for-selected="name" selected="{{payment}}">
-          <div name="monthly" class="owox-calculator-l-i-select-btn">Monthly</div>
-        </iron-selector>
+        <fieldset>
+          <legend class="owox-calculator-l-i-heading">Payment contract</legend>
+          <iron-selector id="payment" class="owox-calculator-l-i-select" attr-for-selected="name" selected="{{payment}}">
+            <div name="monthly" class="owox-calculator-l-i-select-btn">Monthly</div>
+          </iron-selector>
+        </fieldset>
       </li>
 
       <li class="owox-calculator-l-i">
-        <div class="owox-calculator-users">
-          <label class="owox-calculator-l-i-heading"  for="users" >Number of unique users per month</label>
+        <fieldset>
+          <legend class="owox-calculator-l-i-heading">Number of unique users per month</legend>
           <input id="users" class="owox-calculator-l-i-input-t" type="text" value="{{users::input}}">
-        </div>
+        </fieldset>
       </li>
     </ul>
 
