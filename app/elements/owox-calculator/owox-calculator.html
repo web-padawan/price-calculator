@@ -6,9 +6,67 @@
     <style include="shared-styles">
       :host {
         display: block;
+        width: 812px;
+        margin: 5% auto;
+        background: #fff;
+        max-height: 602px;
+        height: 602px;
+        overflow-y: auto;
       }
 
-      .plan__item {
+      .owox-calculator-heading {
+        font: normal 600 2.5em 'OpenSansSemibold', sans-serif;
+        color: #333;
+        margin: 0 0 5px;
+      }
+
+      .owox-calculator-l {
+        width: 395px;
+        float: left;
+        margin: 12px 0 0 22px;
+        list-style: none;
+      }
+
+      .owox-calculator-l-i {
+        padding: 0 0 26px 32px;
+        color: #444;
+        border-left: 1px solid #cfcfcf;
+      }
+
+      .owox-calculator-l-i:nth-of-type(3) {
+        border-left: none;
+      }
+
+      .owox-calculator-l-i-heading {
+        font-size: 1.26em;
+        margin: 0 0 15px;
+        position: relative;
+      }
+
+      .owox-calculator-l-i-heading:before {
+        position: absolute;
+        top: 0;
+        left: -49px;
+        width: 32px;
+        height: 32px;
+        background: #0088cc;
+        color: #fff;
+        line-height: 1.8em;
+        text-align: center;
+        border-radius: 50%;
+      }
+
+      .owox-calculator-l-i:nth-of-type(1) .owox-calculator-l-i-heading:before {
+        content: '1';
+      }
+      .owox-calculator-l-i:nth-of-type(2) .owox-calculator-l-i-heading:before {
+        content: '2';
+      }
+      .owox-calculator-l-i:nth-of-type(3) .owox-calculator-l-i-heading:before {
+        content: '3';
+      }
+
+      .owox-calculator-l-i-select-btn {
         display: inline-block;
         position: relative;
         width: 158px;
@@ -20,9 +78,118 @@
         cursor: pointer;
         transition: all 0.3s;
       }
-      .plan__item.iron-selected {
+
+      .owox-calculator-l-i-select-btn.iron-selected {
         border: 1px solid #8db5f8;
         box-shadow: 0 2px 7px rgba(51,51,51,0.2);
+      }
+
+      .owox-calculator-l-i-heading {
+        font-size: 1.26em;
+        margin: 0 0 15px;
+        position: relative;
+      }
+
+      .owox-calculator-l-i-input-t {
+        margin: 7px 0 0;
+        padding: 1px 0;
+        width: 160px;
+        border: 1px solid #e1e1e1;
+        color: #333;
+        font: normal 400 2.267em 'OpenSansRegular', sans-serif;
+      }
+
+      .owox-calculator-right {
+        /*width: 276px;*/
+        float: right;
+      }
+
+      .owox-calculator-summary {
+        width: 276px;
+        padding: 10px 25px 10px;
+        background-color: #f5f7f8;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        border-radius: 3px;
+      }
+
+      .owox-calculator-summary-heading {
+        margin: 0 0 16px;
+        font: normal 300 1.73em 'OpenSansLight', sans-serif;
+        color: #646464;
+      }
+
+      .owox-calculator-summary-calc {
+        margin: 12px 0;
+        overflow: hidden;
+      }
+
+      .owox-calculator-summary-calc-title,
+      .owox-calculator-summary-calc-amount {
+        font-size: 1.1em;
+      }
+
+      .owox-calculator-summary-calc-title {
+        float: left;
+        width: 140px
+      }
+
+      .owox-calculator-summary-calc-amount {
+        width: 80px;
+        float: right;
+        text-align: right;
+      }
+
+      .owox-calculator-total {
+        max-height: 246px;
+        margin: 2px 0;
+        padding: 5px 10px;
+        background-color: #eef2f5;
+        text-align: center;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+      }
+
+      .owox-calculator-total-heading {
+        margin: 0 0 10px;
+        font: normal 300 1.73em 'OpenSansLight', sans-serif;
+        text-align: center;
+      }
+
+      .owox-calculator-total-amount {
+        margin:0 0 20px;
+        height:64px;
+        overflow-y: hidden;
+        font: normal 300 3.3em 'OpenSansLight', sans-serif;
+      }
+
+      .owox-calculator-total-btn {
+        display: inline-block;
+        padding: 14px 71px;
+        font-size: 1.2em;
+        color: #fff;
+        background-color: #d94836;
+        border-radius: 3px;
+        text-decoration: none;
+      }
+
+      .owox-calculator-total-btn:hover {
+        background-color: #C74130;
+        color:#fff
+      }
+
+      .owox-calculator-total-advise {
+        max-width: 200px;
+        padding: 5px 45px 20px;
+      }
+
+      .owox-calculator-annotation {
+        width: 210px;
+        margin: 10px auto 0;
+        font-size: 0.8em;
+        text-align: center;
+      }
+
+      .owox-calculator-annotation-l-grey {
+        color: #646464;
       }
 
       input {
@@ -30,22 +197,60 @@
       }
     </style>
 
-    <h2 class="calculator__title">Calculate Your Price</h2>
+    <h2 class="owox-calculator-heading">Calculate Your Price</h2>
 
-    <iron-selector id="plan" class="plan" attr-for-selected="name" selected="{{plan}}">
-      <div name="pro" class="plan__item">Pro</div>
-      <div name="enterprise" class="plan__item">Enterprise</div>
-    </iron-selector>
+    <ul class="owox-calculator-l">
 
-    <div class="calculator-users">
-      <label for="users">Number of unique users per month</label>
-      <input id="users" type="text" value="{{users::input}}">
+      <li class="owox-calculator-l-i">
+        <div class="owox-calculator-l-i-heading">Select Plan</div>
+        <iron-selector id="plan" class="owox-calculator-l-i-select" attr-for-selected="name" selected="{{plan}}">
+          <div name="pro" class="owox-calculator-l-i-select-btn">Pro</div>
+          <div name="enterprise" class="owox-calculator-l-i-select-btn">Enterprise</div>
+        </iron-selector>
+      </li>
+
+      <li class="owox-calculator-l-i">
+        <div class="owox-calculator-l-i-heading">Payment Contract</div>
+        <iron-selector id="payment" class="owox-calculator-l-i-select" attr-for-selected="name" selected="{{payment}}">
+          <div name="monthly" class="owox-calculator-l-i-select-btn">Monthly</div>
+        </iron-selector>
+      </li>
+
+      <li class="owox-calculator-l-i">
+        <div class="owox-calculator-users">
+          <label class="owox-calculator-l-i-heading"  for="users" >Number of unique users per month</label>
+          <input id="users" class="owox-calculator-l-i-input-t" type="text" value="{{users::input}}">
+        </div>
+      </li>
+    </ul>
+
+    <div class="owox-calculator-right">
+
+      <div class="owox-calculator-summary">
+        <h4 class="owox-calculator-summary-heading">Pricing Summary</h4>
+        <div class="owox-calculator-summary-calc">
+          <div class="owox-calculator-summary-calc-title">{{formatPlanTitle(plan)}}</div>
+          <div class="owox-calculator-summary-calc-amount">{{formatPlanAmount(plan)}}</div>
+        </div>
+        <div class="owox-calculator-summary-calc">
+          <div class="owox-calculator-summary-calc-title">Users:</div>
+          <div class="owox-calculator-summary-calc-amount">{{formatUsersAmount(plan, users)}}</div>
+        </div>
+      </div>
+
+      <div class="owox-calculator-total">
+        <h4 class="owox-calculator-total-heading">Total per month:</h4>
+        <div id="total" class="owox-calculator-total-amount">{{formatTotalAmount(total)}}</div>
+        <a href="https://my.bi.owox.com/ui/projects/setup/?type={{plan}}" class="owox-calculator-total-btn">Start</a>
+        <div class="owox-calculator-total-advise">Sign in with your Google account</div>
+      </div>
+
+      <div class="owox-calculator-annotation">
+        You pay for Google Cloud Platform usage separately according
+        to&nbsp;<a href="https://cloud.google.com/bigquery/pricing#storage" target="_blank" class="owox-calculator-annotation-l-grey">pricing.</a>
+      </div>
     </div>
 
-    <div class="calculator__total">
-      <h3>Total per month:</h3>
-      <div id="total">{{formatTotal(total)}}</div>
-    </div>
   </template>
 
   <script>
@@ -63,6 +268,11 @@
           plan: {
             type: String,
             value: 'pro',
+            notify: true
+          },
+          payment: {
+            type: String,
+            value: 'monthly',
             notify: true
           },
           total: {
@@ -88,18 +298,41 @@
         computeTotal: function(plan, users) {
           var count = Number(users.replace(/\D/g, ""));
           switch (plan) {
-            case "pro":
-              return Math.round((count * 0.96 / 1000 + 95) * 100) / 100;
+            case 'pro':
+              return Math.ceil(count * 0.96 / 1000 + 95);
               break;
-            case "enterprise":
-              return Math.round((count * 0.85 / 1000 + 1200) * 100) / 100;
+            case 'enterprise':
+              return Math.ceil(count * 0.85 / 1000 + 1200);
               break;
           }
         },
 
-        /* output formatted total */
-        formatTotal: function(total) {
-          return '$' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        /* output formatted plan title */
+        formatPlanTitle: function(plan) {
+          return plan.charAt(0).toUpperCase() + plan.slice(1) + ' Plan:';
+        },
+
+        /* output formatted plan amount */
+        formatPlanAmount: function(plan) {
+          return (plan === 'pro') ? '$ 95' : '$ 1,200';
+        },
+
+        /* output formatted total amount */
+        formatTotalAmount: function(total) {
+          return '$ ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+
+        /* output formatted users amount */
+        formatUsersAmount: function(plan, users) {
+          var count = Number(users.replace(/\D/g, ""));
+          switch (plan) {
+            case 'pro':
+              return '$ ' + Math.ceil(count * 0.96 / 1000);
+              break;
+            case 'enterprise':
+              return '$ ' + Math.ceil(count * 0.85 / 1000);
+              break;
+          }
         }
 
       });
