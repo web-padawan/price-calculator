@@ -316,8 +316,8 @@
 
     <h2 class="owox-calculator-heading">Calculate Your Price</h2>
 
+    <!-- left panel -->
     <ul class="owox-calculator-l">
-
       <li class="owox-calculator-l-i">
         <fieldset>
           <legend class="owox-calculator-l-i-heading">Select plan</legend>
@@ -327,7 +327,6 @@
           </iron-selector>
         </fieldset>
       </li>
-
       <li class="owox-calculator-l-i">
         <fieldset>
           <legend class="owox-calculator-l-i-heading">Payment contract</legend>
@@ -336,7 +335,6 @@
           </iron-selector>
         </fieldset>
       </li>
-
       <li class="owox-calculator-l-i">
         <fieldset>
           <legend class="owox-calculator-l-i-heading">Number of unique users per month</legend>
@@ -344,9 +342,10 @@
         </fieldset>
       </li>
     </ul>
+    <!-- end left panel -->
 
+    <!-- right panel -->
     <div class="owox-calculator-right">
-
       <div class="owox-calculator-copy-container">
         <div class="owox-calculator-copy-link-btn">
           <span id="copy" class="owox-calculator-copy-link-btn-t">Copy url to clipboard</span>
@@ -381,16 +380,16 @@
         to&nbsp;<a href="https://cloud.google.com/bigquery/pricing#storage" target="_blank" class="owox-calculator-annotation-l-grey">pricing.</a>
       </div>
     </div>
+    <!-- end right panel -->
 
     <div class="clearfix"></div>
 
+    <!-- bottom block -->
     <div class="owox-calculator-estimate">
-
       <input id="expand" type="checkbox">
       <label for="expand" class="owox-calculator-estimate-btn">
         <span class="owox-calculator-estimate-btn-t">How to estimate active users?</span>
       </label>
-
       <div id="estimate_content" class="owox-calculator-estimate-content hidden">
         <div class="owox-calculator-estimate-content-block">
           <h4 class="owox-calculator-estimate-content-block-heading">
@@ -398,14 +397,12 @@
           </h4>
           <img src="https://i.owox.com/owox_com/calc-img1.jpg" alt="">
         </div>
-
         <div class="owox-calculator-estimate-content-block">
           <h4 class="owox-calculator-estimate-content-block-heading">
             2. Select <b>Audience &gt; Overview</b> from the Report navigation.
           </h4>
           <img src="https://i.owox.com/owox_com/calc-img2.jpg" alt="">
         </div>
-
         <div class="owox-calculator-estimate-content-block">
           <h4 class="owox-calculator-estimate-content-block-heading">
             3. The number of active users for the past 30 days is available below the chart.
@@ -414,7 +411,7 @@
         </div>
       </div>
     </div>
-
+    <!-- end bottom block -->
   </template>
 
   <script>
