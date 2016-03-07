@@ -261,7 +261,8 @@
         is: 'owox-calculator',
 
         listeners: {
-          'users.input': '_input'
+          'users.input'         : '_inputUsers',
+          'plan.iron-deselect'  : '_selectPlan'
         },
 
         properties: {
@@ -283,18 +284,29 @@
           users: {
             type: String,
             value: '1,000,000',
-            notify: true
+            notify: true,
+            observer: '_observeUsers'
           }
         },
 
-        /* add commas while user typing numbers */
-        _input: function(e) {
-          e.target.value = e.target.value
-            .replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // add commas while user typing numbers; update url parameters
+        _inputUsers: function(e) {
+          var users = e.target.value.replace(/\D/g, "");
+          e.target.value = users.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + users);
         },
 
-        /* calculate total amount */
+        // observe for users change
+        _observeUsers: function() {
+          this.$.users.value = this.$.users.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+
+        // update url parameters
+        _selectPlan: function(e) {
+          page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + this.users.replace(/\D/g, ""));
+        },
+
+        // calculate total amount
         computeTotal: function(plan, users) {
           var count = Number(users.replace(/\D/g, ""));
           switch (plan) {
@@ -307,22 +319,22 @@
           }
         },
 
-        /* output formatted plan title */
+        // output formatted plan title
         formatPlanTitle: function(plan) {
           return plan.charAt(0).toUpperCase() + plan.slice(1) + ' Plan:';
         },
 
-        /* output formatted plan amount */
+        // output formatted plan amount
         formatPlanAmount: function(plan) {
           return (plan === 'pro') ? '$ 95' : '$ 1,200';
         },
 
-        /* output formatted total amount */
+        // output formatted total amount
         formatTotalAmount: function(total) {
           return '$ ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
 
-        /* output formatted users amount */
+        // output formatted users amount
         formatUsersAmount: function(plan, users) {
           var count = Number(users.replace(/\D/g, ""));
           switch (plan) {
