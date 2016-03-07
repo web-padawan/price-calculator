@@ -502,13 +502,12 @@
           else {
             this.toggleClass('hidden', false, this.$.estimate_content);
 
-            var self = this, t = 0;
+            var self = this;
             var timer = setTimeout(function tick() {
-              if (self.scrollTop > 480) return;
-              self.scrollTop = self.scrollTop + 25 * t;
-              t += 1;
-              timer = setTimeout(tick, 25);
-            }, 25);
+              if (self.scrollTop > 500) return;
+              self.scrollTop = self.scrollTop + 40;
+              timer = setTimeout(tick, 5);
+            }, 5);
           }
         },
 
