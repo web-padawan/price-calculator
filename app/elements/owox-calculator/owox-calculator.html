@@ -359,19 +359,19 @@
       <div class="owox-calculator-summary">
         <h4 class="owox-calculator-summary-heading">Pricing Summary</h4>
         <div class="owox-calculator-summary-calc">
-          <div class="owox-calculator-summary-calc-title">{{formatPlanTitle(plan)}}</div>
-          <div class="owox-calculator-summary-calc-amount">{{formatPlanAmount(plan)}}</div>
+          <div class="owox-calculator-summary-calc-title">[[formatPlanTitle(plan)]]</div>
+          <div class="owox-calculator-summary-calc-amount">[[formatPlanAmount(plan)]]</div>
         </div>
         <div class="owox-calculator-summary-calc">
           <div class="owox-calculator-summary-calc-title">Users:</div>
-          <div class="owox-calculator-summary-calc-amount">{{formatUsersAmount(plan, users)}}</div>
+          <div class="owox-calculator-summary-calc-amount">[[formatUsersAmount(plan, users)]]</div>
         </div>
       </div>
 
       <div class="owox-calculator-total">
         <h4 class="owox-calculator-total-heading">Total per month:</h4>
-        <div id="total" class="owox-calculator-total-amount">{{formatTotalAmount(total)}}</div>
-        <a href="https://my.bi.owox.com/ui/projects/setup/?type={{plan}}" class="owox-calculator-total-btn">Start</a>
+        <div id="total" class="owox-calculator-total-amount">[[formatTotalAmount(total)]]</div>
+        <a href="https://my.bi.owox.com/ui/projects/setup/?type=[[plan]]" class="owox-calculator-total-btn">Start</a>
         <div class="owox-calculator-total-advise">Sign in with your Google account</div>
       </div>
 
