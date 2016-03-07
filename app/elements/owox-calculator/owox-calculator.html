@@ -251,7 +251,7 @@
 
       .owox-calculator-total-btn:hover {
         background-color: #C74130;
-        color:#fff
+        color: #fff;
       }
 
       .owox-calculator-total-advise {
@@ -271,9 +271,47 @@
         color: #646464;
       }
 
-      input {
-        @apply(--paper-font-body2);
+      .owox-calculator-estimate {
+        margin: 0 -50px;
       }
+
+      .owox-calculator-estimate input {
+        display: none;
+      }
+
+      .owox-calculator-estimate-btn {
+        padding: 13px 13px 13px 96px;
+        position: relative;
+        z-index: 20;
+        display: inline-block;
+        cursor: pointer;
+        color: #1582b0;
+      }
+
+      .owox-calculator-estimate label:before {
+        content: '\25B6';
+        transition: all 0.3s;
+      }
+
+      .owox-calculator-estimate-btn-t {
+        margin-left: 5px;
+        border-bottom: 1px dashed #1582b0;
+      }
+
+      .owox-calculator-estimate input:checked + label:before {
+        content: '\25BC';
+        transform: rotate(90deg);
+      }
+
+      .owox-calculator-estimate-content-block {
+        padding: 20px 50px 50px 100px;
+      }
+
+      .owox-pricing-popup-estimate-content-block-heading {
+        margin: 0 0 15px;
+        font-size: 1.1em;
+      }
+
     </style>
 
     <h2 class="owox-calculator-heading">Calculate Your Price</h2>
@@ -344,6 +382,39 @@
       </div>
     </div>
 
+    <div class="clearfix"></div>
+
+    <div class="owox-calculator-estimate">
+
+      <input id="expand" type="checkbox">
+      <label for="expand" class="owox-calculator-estimate-btn">
+        <span class="owox-calculator-estimate-btn-t">How to estimate active users?</span>
+      </label>
+
+      <div id="estimate_content" class="owox-calculator-estimate-content hidden">
+        <div class="owox-calculator-estimate-content-block">
+          <h4 class="owox-calculator-estimate-content-block-heading">
+            1. Select the <b>Reporting</b> tab.
+          </h4>
+          <img src="https://i.owox.com/owox_com/calc-img1.jpg" alt="">
+        </div>
+
+        <div class="owox-calculator-estimate-content-block">
+          <h4 class="owox-calculator-estimate-content-block-heading">
+            2. Select <b>Audience &gt; Overview</b> from the Report navigation.
+          </h4>
+          <img src="https://i.owox.com/owox_com/calc-img2.jpg" alt="">
+        </div>
+
+        <div class="owox-calculator-estimate-content-block">
+          <h4 class="owox-calculator-estimate-content-block-heading">
+            3. The number of active users for the past 30 days is available below the chart.
+          </h4>
+          <img src="https://i.owox.com/owox_com/calc-img3.jpg" alt="">
+        </div>
+      </div>
+    </div>
+
   </template>
 
   <script>
@@ -357,7 +428,8 @@
           'click'               : '_hideMessage',
           'users.input'         : '_inputUsers',
           'plan.iron-deselect'  : '_selectPlan',
-          'copy.click'          : '_copyUrl'
+          'copy.click'          : '_copyUrl',
+          'expand.click'        : '_expandEstimate'
         },
 
         properties: {
@@ -422,6 +494,24 @@
         _hideMessage: function(e) {
           if (e.target.id !== 'tooltip' && e.target.parentNode.id !== 'tooltip') {
             this.toggleClass('hidden', true, this.$.tooltip);
+          }
+        },
+
+        // expand and collapse estimate
+        _expandEstimate: function(e) {
+          if (Array.prototype.slice.call(this.$.estimate_content.classList).indexOf('hidden') === -1) {
+            this.toggleClass('hidden', true, this.$.estimate_content);
+          }
+          else {
+            this.toggleClass('hidden', false, this.$.estimate_content);
+
+            var self = this, t = 0;
+            var timer = setTimeout(function tick() {
+              if (self.scrollTop > 480) return;
+              self.scrollTop = self.scrollTop + 25 * t;
+              t += 1;
+              timer = setTimeout(tick, 25);
+            }, 25);
           }
         },
 
