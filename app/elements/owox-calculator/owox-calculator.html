@@ -389,14 +389,14 @@
 
         // update url parameters
         _selectPlan: function(e) {
-          page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + this.users.replace(/\D/g, ""));
+          page(this.makeUrlParams());
         },
 
         // copy url to clipboard
         _copyUrl: function(e) {
           e.stopPropagation();
 
-          this.$.url_container.value = window.location.href;
+          this.$.url_container.value = window.location.origin + '/' + this.makeUrlParams();
           this.toggleClass('hidden', false, this.$.tooltip);
           this.$.url_container.select();
 
@@ -455,8 +455,12 @@
               return '$ ' + Math.ceil(count * 0.85 / 1000);
               break;
           }
-        }
+        },
 
+        // make url parameters helper
+        makeUrlParams: function() {
+          return '?plan=' + this.plan + ';payment=' + this.payment + ';users=' + this.users.replace(/\D/g, "");
+        }
       });
     })();
   </script>
