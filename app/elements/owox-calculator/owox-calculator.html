@@ -453,11 +453,14 @@
           }
         },
 
-        // add commas while user typing numbers; update url parameters
+        // 1. add commas while user typing numbers
+        // 2. update url parameters
         _inputUsers: function(e) {
+          // 1.
           var users = e.target.value.replace(/\D/g, "");
-          e.target.value = users.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + parseInt(users).toString());
+          e.target.value = (parseInt(users) > 0) ? users.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '';
+          // 2.
+          page(this.makeUrlParams());
         },
 
         // observe for users change
@@ -554,7 +557,8 @@
 
         // make url parameters helper
         makeUrlParams: function() {
-          return '?plan=' + this.plan + ';payment=' + this.payment + ';users=' + this.users.replace(/\D/g, "");
+          var users = this.users.replace(/\D/g, "");
+          return '?plan=' + this.plan + ';payment=' + this.payment + ';users=' + (parseInt(users) > 0 ? users : '');
         }
       });
     })();
