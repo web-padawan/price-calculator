@@ -457,15 +457,15 @@
         // 2. update url parameters
         _inputUsers: function(e) {
           // 1.
-          var users = e.target.value.replace(/\D/g, "");
-          e.target.value = (parseInt(users) > 0) ? users.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '';
+          var users = e.target.value.replace(/\D/g, '');
+          e.target.value = (parseInt(users) > 0) ? users.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
           // 2.
           page(this.makeUrlParams());
         },
 
         // observe for users change
         _observeUsers: function() {
-          this.$.users.value = this.$.users.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          this.$.users.value = this.$.users.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
 
         // update url parameters
@@ -516,7 +516,7 @@
 
         // calculate total amount
         computeTotal: function(plan, users) {
-          var count = Number(users.replace(/\D/g, ""));
+          var count = Number(users.replace(/\D/g, ''));
           switch (plan) {
             case 'pro':
               return Math.ceil(count * 0.96 / 1000 + 95);
@@ -539,12 +539,12 @@
 
         // output formatted total amount
         formatTotalAmount: function(total) {
-          return '$ ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          return '$ ' + total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
 
         // output formatted users amount
         formatUsersAmount: function(plan, users) {
-          var count = Number(users.replace(/\D/g, ""));
+          var count = Number(users.replace(/\D/g, ''));
           switch (plan) {
             case 'pro':
               return '$ ' + Math.ceil(count * 0.96 / 1000);
@@ -557,7 +557,7 @@
 
         // make url parameters helper
         makeUrlParams: function() {
-          var users = this.users.replace(/\D/g, "");
+          var users = this.users.replace(/\D/g, '');
           return '?plan=' + this.plan + ';payment=' + this.payment + ';users=' + (parseInt(users) > 0 ? users : '');
         }
       });
