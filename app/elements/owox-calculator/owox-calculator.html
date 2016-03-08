@@ -457,7 +457,7 @@
         _inputUsers: function(e) {
           var users = e.target.value.replace(/\D/g, "");
           e.target.value = users.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + users);
+          page('?plan=' + this.plan + ';payment=' + this.payment + ';users=' + parseInt(users).toString());
         },
 
         // observe for users change

@@ -25,8 +25,8 @@
       }
 
       // update users count
-      if (params['users'] && Number(params['users']) > 0) {
-        root.users = params['users'];
+      if (params['users'] && parseInt(params['users']) > 0) {
+        root.users = parseInt(params['users']).toString();
       }
 
       next();
