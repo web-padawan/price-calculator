@@ -1,9 +1,3 @@
-body {
-  background: #fafafa;
-  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
-}
-
 @font-face {
 	font-family: "OpenSansLight";
 	src: url("https://i.owox.com/fonts/OpenSansLight.eot");
